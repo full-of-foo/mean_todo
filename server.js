@@ -1,29 +1,23 @@
-// server.js
+// set up ======================================================================
+var express  = require('express');
+var app      = express(); 								// create our app w/ express
+var mongoose = require('mongoose'); 					// mongoose for mongodb
+var port  	 = process.env.PORT || 8080; 				// set the port
+var database = require('./config/db'); 			// load the database config
 
-// modules =================================================
-var express = require('express');
-var app     = express();
-var mongoose= require('mongoose');
-
-// configuration ===========================================
-
-// config files
-var db = require('./config/db');
-
-var port = process.env.PORT || 8080; // set our port
-// mongoose.connect(db.url); // connect to our mongoDB database (uncomment after you enter in your own credentials in config/db.js)
+// configuration ===============================================================
+mongoose.connect(database.url); 	// connect to mongoDB database on modulus.io
 
 app.configure(function() {
-	app.use(express.static(__dirname + '/public')); 	// set the static files location /public/img will be /img for users
-	app.use(express.logger('dev')); 					// log every request to the console
-	app.use(express.bodyParser()); 						// have the ability to pull information from html in POST
-	app.use(express.methodOverride()); 					// have the ability to simulate DELETE and PUT
+	app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
+	app.use(express.logger('dev')); 						// log every request to the console
+	app.use(express.bodyParser()); 							// pull information from html in POST
+	app.use(express.methodOverride()); 						// simulate DELETE and PUT
 });
 
-// routes ==================================================
-require('./app/routes')(app); // configure our routes
+// routes ======================================================================
+require('./app/routes.js')(app);
 
-// start app ===============================================
-app.listen(port);										// startup our app at http://localhost:8080
-console.log('Magic happens on port ' + port); 			// shoutout to the user
-exports = module.exports = app; 						// expose app
+// listen (start app with node server.js) ======================================
+app.listen(port);
+console.log("App listening on port " + port);

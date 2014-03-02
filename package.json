@@ -1,8 +1,11 @@
 {
-	  "name": "starter-node-angular",
-	  "main": "server.js",
-	  "dependencies": {
-	    "express": "latest",
-	    "mongoose": "latest"
-	  }
+  "name": "mean-todo",
+  "main": "server.js",
+  "dependencies": {
+		"express"    : "~3.4.4",
+		"mongoose"   : "~3.6.2"
+  }
+	"engines": {
+    "node": "0.10.x"
+		}
 	}
