@@ -1,3 +1,3 @@
 module.exports = {
-	url : 'mongodb://localhost/todos-dev'
+	url : process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/todos-dev'
 }
